@@ -23,8 +23,6 @@ var options = {
   method: 'GET'
 };
 
-isMultihash=false;
-
 request(options, async function (error, response, body) {
   if (!error && response.statusCode == 200) {
 
@@ -34,7 +32,7 @@ request(options, async function (error, response, body) {
     console.log('Digest mru update for', {
     	"period": metaBody.period,
     	"version": metaBody.version,
-    	"multihash": metaBody.multiHash,
+    	"multihash": isMultihash,
     	"data": newData,
     	"metaHash": metaBody.metaHash,
     	"rootAddr": metaBody.rootAddr
@@ -43,7 +41,7 @@ request(options, async function (error, response, body) {
     const dataToSign = mruUpdateDigest({
     	"period": metaBody.period,
     	"version": metaBody.version,
-    	"multihash": metaBody.multiHash,
+    	"multihash": isMultihash,
     	"data": newData,
     	"metaHash": metaBody.metaHash,
     	"rootAddr": metaBody.rootAddr
