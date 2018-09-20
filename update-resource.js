@@ -52,7 +52,13 @@ request(options, async function (error, response, body) {
     web3.eth.accounts.wallet.add(privateKey);
     const account = web3.eth.accounts.wallet[0].address;
     console.log('Data to sign', dataToSign, 'by account', account);
-    const signature = await web3.eth.sign(dataToSign, account);
+
+    const secp256k1 = require('secp256k1');
+    const sigObj = secp256k1.sign(
+      Buffer.from(web3.utils.hexToBytes(dataToSign)),
+      Buffer.from(web3.utils.hexToBytes('0x'+privateKey))
+    );
+    const signature = '0x'+sigObj.signature.toString('hex')+"0"+sigObj.recovery.toString();
 
     console.log('Signer recovered before sending',web3.eth.accounts.recover(dataToSign, signature));
     web3.eth.accounts.wallet.clear();
