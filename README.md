@@ -9,6 +9,10 @@ node create-resource.js --owner OWNER_ADDRESS --name MRU_NAME
 ```
 node get-resource.js --mru MRU_ID
 ```
+## Open an MRU on the browser
+```
+node open-resource.js --mru MRU_ID
+```
 ## Update a MRU
 ```
 node update-resource.js --mru MRU_ID --privateKey PRIVATE_KEY --data NEW_DATA [--multihash]
